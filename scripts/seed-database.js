@@ -2,7 +2,7 @@
 // ZOÉ FERME ERP — Script de seed via fetch natif (Node v18+)
 // ============================================================
 const SUPABASE_URL = 'https://hmyszecyarpadlnfsagg.supabase.co'
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhteXN6ZWN5YXJwYWRsbmZzYWdnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4NTc5ODQsImV4cCI6MjEwMzQzMzk4NH0.N1zdZ00C2Xl4KMRnXCyQjz3n7bVwW0Ocr8zwN0TFadw'
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhteXN6ZWN5YXJwYWRsbmZzYWdnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4Nzg1Nzk4NCwiZXhwIjoyMTAzNDMzOTg0fQ.3TU4va0UKEXgr7_SHHG6bnvT2Xeq-JE5Zu9KnKwtknE'
 
 const HEADERS = {
   'apikey': SUPABASE_KEY,
@@ -151,15 +151,15 @@ async function main() {
     { batch_id: b1.id, date: '2024-07-15', count: 5, cause: 'inconnu',  description: 'Chaleur intense 40°C' },
     { batch_id: b1.id, date: '2024-07-22', count: 2, cause: 'accident', description: 'Étouffement distribution aliment' },
     { batch_id: b1.id, date: '2024-07-30', count: 3, cause: 'maladie',  description: 'Quelques cas de coryza' },
-    { batch_id: b1.id, date: '2024-08-05', count: 2, cause: 'inconnu' },
+    { batch_id: b1.id, date: '2024-08-05', count: 2, cause: 'inconnu',  description: null },
   ], 'Mortalités lot 1 (17 têtes)')
 
   await insert('weight_records', [
-    { batch_id: b1.id, date: '2024-07-08', age_days: 7,  sample_size: 20, avg_weight_g: 168,  min_weight_g: 145, max_weight_g: 195 },
-    { batch_id: b1.id, date: '2024-07-15', age_days: 14, sample_size: 20, avg_weight_g: 382,  min_weight_g: 340, max_weight_g: 425 },
-    { batch_id: b1.id, date: '2024-07-22', age_days: 21, sample_size: 25, avg_weight_g: 780,  min_weight_g: 710, max_weight_g: 855 },
-    { batch_id: b1.id, date: '2024-07-29', age_days: 28, sample_size: 25, avg_weight_g: 1320, min_weight_g: 1180, max_weight_g: 1480 },
-    { batch_id: b1.id, date: '2024-08-05', age_days: 35, sample_size: 30, avg_weight_g: 1950, min_weight_g: 1750, max_weight_g: 2200 },
+    { batch_id: b1.id, date: '2024-07-08', age_days: 7,  sample_size: 20, avg_weight_g: 168,  min_weight_g: 145, max_weight_g: 195,  notes: null },
+    { batch_id: b1.id, date: '2024-07-15', age_days: 14, sample_size: 20, avg_weight_g: 382,  min_weight_g: 340, max_weight_g: 425,  notes: null },
+    { batch_id: b1.id, date: '2024-07-22', age_days: 21, sample_size: 25, avg_weight_g: 780,  min_weight_g: 710, max_weight_g: 855,  notes: null },
+    { batch_id: b1.id, date: '2024-07-29', age_days: 28, sample_size: 25, avg_weight_g: 1320, min_weight_g: 1180, max_weight_g: 1480, notes: null },
+    { batch_id: b1.id, date: '2024-08-05', age_days: 35, sample_size: 30, avg_weight_g: 1950, min_weight_g: 1750, max_weight_g: 2200, notes: null },
     { batch_id: b1.id, date: '2024-08-12', age_days: 42, sample_size: 30, avg_weight_g: 2450, min_weight_g: 2200, max_weight_g: 2750, notes: 'Abattage final' },
   ], 'Pesées lot 1 (6 relevés)')
 
@@ -180,46 +180,46 @@ async function main() {
   ], 'Consommation aliment lot 1')
 
   await insert('health_records', [
-    { batch_id: b1.id, date: '2024-07-03', type: 'vaccination', product_name: 'Newcastle La Sota',     dose: '1 dose/eau', route: 'eau',      administered_by: 'Dr. Essomba', cost: 22500 },
-    { batch_id: b1.id, date: '2024-07-07', type: 'vaccination', product_name: 'Gumboro IBD',           dose: '1 dose/eau', route: 'eau',      administered_by: 'Dr. Essomba', cost: 26000 },
-    { batch_id: b1.id, date: '2024-07-10', type: 'traitement',  product_name: 'Amoxicilline 20%',      dose: '1g/L 5j',    route: 'eau',      administered_by: 'Responsable', cost: 15000 },
-    { batch_id: b1.id, date: '2024-07-14', type: 'vaccination', product_name: 'Newcastle Rappel H120', dose: '1 dose',     route: 'oculaire', administered_by: 'Dr. Essomba', cost: 22500 },
-    { batch_id: b1.id, date: '2024-07-21', type: 'vaccination', product_name: 'Gumboro Rappel',        dose: '1 dose/eau', route: 'eau',      administered_by: 'Dr. Essomba', cost: 26000 },
-    { batch_id: b1.id, date: '2024-07-25', type: 'prevention',  product_name: 'Vitamine C + Électrolytes', dose: '1g/L 3j', route: 'eau',   administered_by: 'Responsable', cost: 9000, notes: 'Stress chaleur' },
+    { batch_id: b1.id, date: '2024-07-03', type: 'vaccination', product_name: 'Newcastle La Sota',     dose: '1 dose/eau', route: 'eau',      administered_by: 'Dr. Essomba', cost: 22500, notes: null },
+    { batch_id: b1.id, date: '2024-07-07', type: 'vaccination', product_name: 'Gumboro IBD',           dose: '1 dose/eau', route: 'eau',      administered_by: 'Dr. Essomba', cost: 26000, notes: null },
+    { batch_id: b1.id, date: '2024-07-10', type: 'traitement',  product_name: 'Amoxicilline 20%',      dose: '1g/L 5j',    route: 'eau',      administered_by: 'Responsable', cost: 15000, notes: null },
+    { batch_id: b1.id, date: '2024-07-14', type: 'vaccination', product_name: 'Newcastle Rappel H120', dose: '1 dose',     route: 'oculaire', administered_by: 'Dr. Essomba', cost: 22500, notes: null },
+    { batch_id: b1.id, date: '2024-07-21', type: 'vaccination', product_name: 'Gumboro Rappel',        dose: '1 dose/eau', route: 'eau',      administered_by: 'Dr. Essomba', cost: 26000, notes: null },
+    { batch_id: b1.id, date: '2024-07-25', type: 'prevention',  product_name: 'Vitamine C + Électrolytes', dose: '1g/L 3j', route: 'eau',   administered_by: 'Responsable', cost: 9000,  notes: 'Stress chaleur' },
   ], 'Soins lot 1 (6 actes)')
 
   await insert('expenses', [
     { batch_id: b1.id, category_id: catPoussin.id,   supplier_id: suppPoussin.id, date: '2024-07-01', description: 'Achat 500 poussins Ross 308 J1', amount: 275000 },
-    { batch_id: b1.id, category_id: catMain.id,                                   date: '2024-07-31', description: 'Salaire ouvrier juillet',          amount: 75000 },
-    { batch_id: b1.id, category_id: catEau.id,                                    date: '2024-07-31', description: 'Eau + électricité juillet',         amount: 28500 },
+    { batch_id: b1.id, category_id: catMain.id,      supplier_id: null,           date: '2024-07-31', description: 'Salaire ouvrier juillet',          amount: 75000 },
+    { batch_id: b1.id, category_id: catEau.id,       supplier_id: null,           date: '2024-07-31', description: 'Eau + électricité juillet',         amount: 28500 },
     { batch_id: b1.id, category_id: catTransport.id, supplier_id: suppPoussin.id, date: '2024-07-01', description: 'Transport poussins Douala',         amount: 15000 },
-    { batch_id: b1.id, category_id: catLitiere.id,                                date: '2024-07-01', description: 'Sciure de bois 10 sacs',            amount: 15000 },
-    { batch_id: b1.id, category_id: catEquip.id,                                  date: '2024-07-05', description: 'Réparation abreuvoir',              amount: 12000 },
-    { batch_id: b1.id, category_id: catAutres.id,                                 date: '2024-07-15', description: 'Produits nettoyage bâtiment',        amount: 8500 },
+    { batch_id: b1.id, category_id: catLitiere.id,   supplier_id: null,           date: '2024-07-01', description: 'Sciure de bois 10 sacs',            amount: 15000 },
+    { batch_id: b1.id, category_id: catEquip.id,     supplier_id: null,           date: '2024-07-05', description: 'Réparation abreuvoir',              amount: 12000 },
+    { batch_id: b1.id, category_id: catAutres.id,    supplier_id: null,           date: '2024-07-15', description: 'Produits nettoyage bâtiment',        amount: 8500 },
   ], 'Dépenses lot 1')
 
   const sales1 = await insert('sales', [
-    { batch_id: b1.id, customer_id: custResto.id,  date: '2024-08-05', status: 'paid',    total_amount: 400000 },
-    { batch_id: b1.id, customer_id: custMarche.id, date: '2024-08-08', status: 'paid',    total_amount: 600000 },
-    { batch_id: b1.id, customer_id: custHilton.id, date: '2024-08-10', status: 'paid',    total_amount: 525000 },
+    { batch_id: b1.id, customer_id: custResto.id,  date: '2024-08-05', status: 'paid',    total_amount: 400000, notes: null },
+    { batch_id: b1.id, customer_id: custMarche.id, date: '2024-08-08', status: 'paid',    total_amount: 600000, notes: null },
+    { batch_id: b1.id, customer_id: custHilton.id, date: '2024-08-10', status: 'paid',    total_amount: 525000, notes: null },
     { batch_id: b1.id, customer_id: custSuperM.id, date: '2024-08-12', status: 'partial', total_amount: 560000, notes: 'Solde 210k dû' },
-    { batch_id: b1.id, customer_id: custFokou.id,  date: '2024-08-12', status: 'paid',    total_amount: 280000 },
+    { batch_id: b1.id, customer_id: custFokou.id,  date: '2024-08-12', status: 'paid',    total_amount: 280000, notes: null },
   ], 'Ventes lot 1 (5)')
 
   await insert('sale_items', [
-    { sale_id: sales1[0].id, quantity: 100, unit_weight_kg: 2.30, total_weight_kg: 230.0,  unit_price: 4000, total_price: 400000 },
-    { sale_id: sales1[1].id, quantity: 150, unit_weight_kg: 2.35, total_weight_kg: 352.5,  unit_price: 4000, total_price: 600000 },
+    { sale_id: sales1[0].id, quantity: 100, unit_weight_kg: 2.30, total_weight_kg: 230.0,  unit_price: 4000, total_price: 400000, description: null },
+    { sale_id: sales1[1].id, quantity: 150, unit_weight_kg: 2.35, total_weight_kg: 352.5,  unit_price: 4000, total_price: 600000, description: null },
     { sale_id: sales1[2].id, quantity: 75,  unit_weight_kg: 2.45, total_weight_kg: 183.75, unit_price: 7000, total_price: 525000, description: 'Sélection Hilton' },
-    { sale_id: sales1[3].id, quantity: 80,  unit_weight_kg: 2.40, total_weight_kg: 192.0,  unit_price: 7000, total_price: 560000 },
-    { sale_id: sales1[4].id, quantity: 40,  unit_weight_kg: 2.20, total_weight_kg: 88.0,   unit_price: 7000, total_price: 280000 },
+    { sale_id: sales1[3].id, quantity: 80,  unit_weight_kg: 2.40, total_weight_kg: 192.0,  unit_price: 7000, total_price: 560000, description: null },
+    { sale_id: sales1[4].id, quantity: 40,  unit_weight_kg: 2.20, total_weight_kg: 88.0,   unit_price: 7000, total_price: 280000, description: null },
   ], 'Articles vente lot 1')
 
   await insert('payments', [
-    { sale_id: sales1[0].id, customer_id: custResto.id,  date: '2024-08-05', amount: 400000, method: 'mobile_money', reference: 'MTN-2408-001' },
-    { sale_id: sales1[1].id, customer_id: custMarche.id, date: '2024-08-08', amount: 600000, method: 'especes' },
-    { sale_id: sales1[2].id, customer_id: custHilton.id, date: '2024-08-12', amount: 525000, method: 'virement',     reference: 'VIR-HILTON-0812' },
-    { sale_id: sales1[3].id, customer_id: custSuperM.id, date: '2024-08-12', amount: 350000, method: 'especes',      notes: 'Acompte — solde 210k dû' },
-    { sale_id: sales1[4].id, customer_id: custFokou.id,  date: '2024-08-12', amount: 280000, method: 'mobile_money', reference: 'OM-2408-045' },
+    { sale_id: sales1[0].id, customer_id: custResto.id,  date: '2024-08-05', amount: 400000, method: 'mobile_money', reference: 'MTN-2408-001',   notes: null },
+    { sale_id: sales1[1].id, customer_id: custMarche.id, date: '2024-08-08', amount: 600000, method: 'especes',       reference: null,              notes: null },
+    { sale_id: sales1[2].id, customer_id: custHilton.id, date: '2024-08-12', amount: 525000, method: 'virement',      reference: 'VIR-HILTON-0812', notes: null },
+    { sale_id: sales1[3].id, customer_id: custSuperM.id, date: '2024-08-12', amount: 350000, method: 'especes',       reference: null,              notes: 'Acompte — solde 210k dû' },
+    { sale_id: sales1[4].id, customer_id: custFokou.id,  date: '2024-08-12', amount: 280000, method: 'mobile_money', reference: 'OM-2408-045',     notes: null },
   ], 'Paiements lot 1')
 
   // ── 9. LOT 2 — EN COURS (28 jours) ─────────────────────
@@ -235,7 +235,7 @@ async function main() {
     { batch_id: b2.id, date: d(-26), count: 4, cause: 'inconnu',   description: 'Mortalités initiales J2-J3' },
     { batch_id: b2.id, date: d(-21), count: 2, cause: 'accident',  description: 'Écrasement lors ramassage' },
     { batch_id: b2.id, date: d(-14), count: 3, cause: 'maladie',   description: 'Légère bronchite infectieuse' },
-    { batch_id: b2.id, date: d(-7),  count: 2, cause: 'inconnu' },
+    { batch_id: b2.id, date: d(-7),  count: 2, cause: 'inconnu',   description: null },
   ], 'Mortalités lot 2 (11 têtes)')
 
   await insert('weight_records', [
@@ -259,19 +259,19 @@ async function main() {
   ], 'Consommation aliment lot 2')
 
   await insert('health_records', [
-    { batch_id: b2.id, date: d(-26), type: 'vaccination', product_name: 'Newcastle La Sota',  dose: '1 dose/eau',  route: 'eau',      administered_by: 'Dr. Essomba', cost: 36000 },
-    { batch_id: b2.id, date: d(-22), type: 'vaccination', product_name: 'Gumboro IBD',        dose: '1 dose/eau',  route: 'eau',      administered_by: 'Dr. Essomba', cost: 41600 },
-    { batch_id: b2.id, date: d(-15), type: 'traitement',  product_name: 'Tylosine 100mg',     dose: '500mg/L 5j',  route: 'eau',      administered_by: 'Responsable', cost: 18500, notes: 'Bronchite infectieuse' },
-    { batch_id: b2.id, date: d(-14), type: 'vaccination', product_name: 'Newcastle Rappel',   dose: '1 dose collyre', route: 'oculaire', administered_by: 'Dr. Essomba', cost: 36000 },
-    { batch_id: b2.id, date: d(-7),  type: 'vaccination', product_name: 'Gumboro Rappel',     dose: '1 dose/eau',  route: 'eau',      administered_by: 'Dr. Essomba', cost: 41600 },
+    { batch_id: b2.id, date: d(-26), type: 'vaccination', product_name: 'Newcastle La Sota',  dose: '1 dose/eau',     route: 'eau',      administered_by: 'Dr. Essomba', cost: 36000, notes: null },
+    { batch_id: b2.id, date: d(-22), type: 'vaccination', product_name: 'Gumboro IBD',        dose: '1 dose/eau',     route: 'eau',      administered_by: 'Dr. Essomba', cost: 41600, notes: null },
+    { batch_id: b2.id, date: d(-15), type: 'traitement',  product_name: 'Tylosine 100mg',     dose: '500mg/L 5j',     route: 'eau',      administered_by: 'Responsable', cost: 18500, notes: 'Bronchite infectieuse' },
+    { batch_id: b2.id, date: d(-14), type: 'vaccination', product_name: 'Newcastle Rappel',   dose: '1 dose collyre', route: 'oculaire', administered_by: 'Dr. Essomba', cost: 36000, notes: null },
+    { batch_id: b2.id, date: d(-7),  type: 'vaccination', product_name: 'Gumboro Rappel',     dose: '1 dose/eau',     route: 'eau',      administered_by: 'Dr. Essomba', cost: 41600, notes: null },
   ], 'Soins lot 2 (5 actes)')
 
   await insert('expenses', [
     { batch_id: b2.id, category_id: catPoussin.id,   supplier_id: suppPoussin.id, date: d(-28), description: 'Achat 800 poussins Ross 308',        amount: 440000 },
-    { batch_id: b2.id, category_id: catLitiere.id,                                date: d(-28), description: 'Sciure de bois 15 sacs',             amount: 22500 },
+    { batch_id: b2.id, category_id: catLitiere.id,   supplier_id: null,           date: d(-28), description: 'Sciure de bois 15 sacs',             amount: 22500 },
     { batch_id: b2.id, category_id: catTransport.id, supplier_id: suppPoussin.id, date: d(-28), description: 'Transport poussins Douala-Yaoundé',   amount: 20000 },
-    { batch_id: b2.id, category_id: catMain.id,                                   date: d(-1),  description: 'Salaire ouvrier — mois courant',      amount: 75000 },
-    { batch_id: b2.id, category_id: catEau.id,                                    date: d(-1),  description: 'Eau + électricité — mois courant',    amount: 31000 },
+    { batch_id: b2.id, category_id: catMain.id,      supplier_id: null,           date: d(-1),  description: 'Salaire ouvrier — mois courant',      amount: 75000 },
+    { batch_id: b2.id, category_id: catEau.id,       supplier_id: null,           date: d(-1),  description: 'Eau + électricité — mois courant',    amount: 31000 },
   ], 'Dépenses lot 2')
 
   // ── 10. LOT 3 — NOUVEAU (5 jours) ──────────────────────
@@ -285,7 +285,7 @@ async function main() {
 
   await insert('mortality_records', [
     { batch_id: b3.id, date: d(-3), count: 5, cause: 'inconnu', description: 'Mortalités initiales normales J2' },
-    { batch_id: b3.id, date: d(-1), count: 2, cause: 'inconnu' },
+    { batch_id: b3.id, date: d(-1), count: 2, cause: 'inconnu', description: null },
   ], 'Mortalités lot 3 (7 têtes)')
 
   await insert('weight_records', [
@@ -307,8 +307,8 @@ async function main() {
 
   await insert('expenses', [
     { batch_id: b3.id, category_id: catPoussin.id,   supplier_id: suppPoussin.id, date: d(-5), description: 'Achat 600 poussins Cobb 500', amount: 360000 },
-    { batch_id: b3.id, category_id: catLitiere.id,                                date: d(-5), description: 'Sciure de bois 12 sacs',       amount: 18000 },
-    { batch_id: b3.id, category_id: catTransport.id,                              date: d(-5), description: 'Transport poussins',            amount: 18000 },
+    { batch_id: b3.id, category_id: catLitiere.id,   supplier_id: null,           date: d(-5), description: 'Sciure de bois 12 sacs',       amount: 18000 },
+    { batch_id: b3.id, category_id: catTransport.id, supplier_id: null,           date: d(-5), description: 'Transport poussins',            amount: 18000 },
   ], 'Dépenses lot 3')
 
   // ── RAPPORT FINAL ────────────────────────────────────────

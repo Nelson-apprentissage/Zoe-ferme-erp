@@ -370,9 +370,9 @@ FROM batches b
 LEFT JOIN buildings bg ON bg.id = b.building_id
 LEFT JOIN mortality_records mr ON mr.batch_id = b.id
 LEFT JOIN (
-    SELECT si.batch_id, SUM(si.quantity) AS total_sold
+    SELECT s.batch_id, SUM(si.quantity) AS total_sold
     FROM sale_items si JOIN sales s ON s.id = si.sale_id
-    WHERE s.status != 'cancelled' GROUP BY si.batch_id
+    WHERE s.status != 'cancelled' GROUP BY s.batch_id
 ) sold ON sold.batch_id = b.id
 LEFT JOIN LATERAL (
     SELECT avg_weight_g, date FROM weight_records wr
@@ -396,8 +396,10 @@ SELECT b.id, b.farm_id, b.batch_number, b.start_date, b.status,
 FROM batches b
 LEFT JOIN (SELECT batch_id, SUM(total_price) AS total_feed_cost FROM feed_purchases GROUP BY batch_id) fp ON fp.batch_id = b.id
 LEFT JOIN (SELECT batch_id, SUM(amount) AS total_expenses FROM expenses GROUP BY batch_id) exp ON exp.batch_id = b.id
-LEFT JOIN (SELECT si.batch_id, SUM(si.total_price) AS total_revenue, SUM(si.total_weight_kg) AS total_weight_kg
-    FROM sale_items si JOIN sales s ON s.id = si.sale_id WHERE s.status != 'cancelled' GROUP BY si.batch_id) rev ON rev.batch_id = b.id
+LEFT JOIN (SELECT s.batch_id,
+           SUM(si.total_price) AS total_revenue,
+           SUM(si.total_weight_kg) AS total_weight_kg
+    FROM sale_items si JOIN sales s ON s.id = si.sale_id WHERE s.status != 'cancelled' GROUP BY s.batch_id) rev ON rev.batch_id = b.id
 LEFT JOIN (SELECT s.batch_id, SUM(p.amount) AS total_paid FROM payments p JOIN sales s ON s.id = p.sale_id GROUP BY s.batch_id) pay ON pay.batch_id = b.id;
 
 CREATE OR REPLACE VIEW customer_balances AS
